@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Quiz Cross</string>
+    <string name="cross">Cross</string>
+    <string name="circle">Circle</string>
+    <string name="position00">Position 00</string>
+    <string name="position01">Position 01</string>
+    <string name="position02">Position 02</string>
+    <string name="position10">Position 10</string>
+    <string name="position11">Position 11</string>
+    <string name="position12">Position 12</string>
+    <string name="position20">Position 20</string>
+    <string name="position21">Position 21</string>
+    <string name="position22">Position 22</string>
+    <string name="new_game_button">New Game</string>
+    <string name="settings_button">Settings</string>
+    <string name="home_button">Home</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="wins_player1">0</string>
+    <string name="wins_player2">0</string>
+    <string name="turn">Turn:</string>
+
+    <string name="scienceNature">Science and Nature</string>
+    <string name="mathematics">Mathematics</string>
+    <string name="geography">Geography</string>
+    <string name="history">History</string>
+    <string name="art">Art</string>
+    <string name="animals">Animals</string>
+    <string name="films">Films</string>
+    <string name="generalKnowledge">General Knowledge</string>
+    
+    <string name="easy_difficulty">Easy</string>
+    <string name="medium_difficulty">Medium</string>
+    <string name="hard_difficulty">Hard</string>
+
+
+
+
+
+
+
+
+
+
+</resources>
