@@ -33,7 +33,7 @@
     <string name="easy_difficulty">Easy</string>
     <string name="medium_difficulty">Medium</string>
     <string name="hard_difficulty">Hard</string>
-    
+
     <string name="submit_button">Submit</string>
     <string name="question_statement">Question Statement</string>
     <string name="alternative">Alternative</string>
@@ -43,5 +43,14 @@
     <string name="error_message_category">At least one question category must be selected</string>
     <string name="close_button">Close</string>
     <string name="success_message">The settings were saved!</string>
+    <string name="warning_unselected_alternative">Select an alternative!</string>
+
+    <string name="right_answer_title">Right Answer</string>
+    <string name="right_answer_message">Congratulations you got the answer right</string>
+    <string name="wrong_answer_Title">Wrong answer</string>
+    <string name="wrong_answer_message">I am sorry, you got the answer wrong</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

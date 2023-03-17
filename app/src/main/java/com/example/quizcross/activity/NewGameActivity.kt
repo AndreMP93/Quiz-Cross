@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.quizcross.R
 import com.example.quizcross.databinding.ActivityNewGameBinding
 import com.example.quizcross.viewmodel.GameViewModel
@@ -25,7 +26,7 @@ class NewGameActivity : AppCompatActivity() {
         setContentView(newGameBinding.root)
 
 
-        viewModel = GameViewModel()
+        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
         settingMatrix()
 

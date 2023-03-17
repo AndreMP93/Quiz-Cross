@@ -14,10 +14,10 @@ class QuestionViewModel(private val questionRepository: QuestionRepository): Vie
     private val _isCorrectAnswer = MutableLiveData<Boolean>()
     val isCorrectAnswer: LiveData<Boolean> = _isCorrectAnswer
 
-    fun getQuestion(){
+    fun getQuestion(category: Int, difficult: String){
         viewModelScope.launch {
             try {
-                val response = questionRepository.getQuestion(9, "hard")
+                val response = questionRepository.getQuestion(category, difficult)
                 val question = response.results.first()
                 _question.postValue(question)
 
@@ -29,6 +29,7 @@ class QuestionViewModel(private val questionRepository: QuestionRepository): Vie
     }
 
     fun checkAnswer(answer: String){
+        println("IS_CURRECT_ANSWER: $answer")
         if(_question.value != null && _question.value!!.correct_answer == answer){
             _isCorrectAnswer.postValue(true)
         }else{
