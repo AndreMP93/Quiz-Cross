@@ -296,8 +296,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="CompatCompoundDrawable
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-        tools:layout_editor_absoluteX=" />137dp"
