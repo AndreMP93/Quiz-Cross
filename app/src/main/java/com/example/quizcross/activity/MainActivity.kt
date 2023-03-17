@@ -17,5 +17,8 @@ class MainActivity : AppCompatActivity() {
         mainBinding.buttonNewGame.setOnClickListener {
             startActivity(Intent(applicationContext, NewGameActivity::class.java))
         }
+        mainBinding.buttonSettings.setOnClickListener {
+            startActivity(Intent(applicationContext, SettingsActivity::class.java))
+        }
     }
 }

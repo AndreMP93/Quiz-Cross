@@ -112,7 +112,7 @@
                 app:tint="@color/player2_color" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textPlayer2Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/player2"
