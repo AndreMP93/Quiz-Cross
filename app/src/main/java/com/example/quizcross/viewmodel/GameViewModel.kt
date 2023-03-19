@@ -11,8 +11,6 @@ import kotlinx.coroutines.launch
 
 class GameViewModel: ViewModel() {
 
-    private val repo = QuestionRepository()
-
     private val _scoreboard = MutableLiveData<Scoreboard>()
     private val _ticTacToe = MutableLiveData<TicTacToe>()
     private val _isPlayer1Winner = MutableLiveData<Boolean>()
@@ -54,7 +52,7 @@ class GameViewModel: ViewModel() {
         _isPlayer2Winner.postValue(false)
     }
 
-    fun makeMove(line: Int, column: Int){
+    fun makeMove(line: Int, column: Int, isCorrectAnswer: Boolean){
         viewModelScope.launch {
             val newTicTacToe = _ticTacToe.value?.let {
                 TicTacToe(
@@ -66,12 +64,19 @@ class GameViewModel: ViewModel() {
             }
             if (newTicTacToe != null) {
                 if (newTicTacToe.isPlayer1Turn){
-                    newTicTacToe.board[line][column] = TicTacToe.PLAYER_1_SYMBOL
-                    newTicTacToe.isPlayer1Turn = false
+                    if(isCorrectAnswer){
+                        newTicTacToe.board[line][column] = TicTacToe.PLAYER_1_SYMBOL
+                    }else{
+                        newTicTacToe.board[line][column] = TicTacToe.PLAYER_2_SYMBOL
+                    }
                 }else{
-                    newTicTacToe.board[line][column] = TicTacToe.PLAYER_2_SYMBOL
-                    newTicTacToe.isPlayer1Turn = true
+                    if(isCorrectAnswer){
+                        newTicTacToe.board[line][column] = TicTacToe.PLAYER_2_SYMBOL
+                    }else{
+                        newTicTacToe.board[line][column] = TicTacToe.PLAYER_1_SYMBOL
+                    }
                 }
+                newTicTacToe.isPlayer1Turn = !(newTicTacToe.isPlayer1Turn)
                 newTicTacToe.isEndGame = checkEndGame(newTicTacToe.board)
                 newTicTacToe.isTie = (checkFullBoard(newTicTacToe.board)
                         && _isPlayer1Winner.value == _isPlayer2Winner.value)

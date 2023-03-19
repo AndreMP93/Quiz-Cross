@@ -19,7 +19,7 @@
     <string name="player2">Player 2</string>
     <string name="wins_player1">0</string>
     <string name="wins_player2">0</string>
-    <string name="turn">Turn:</string>
+    <string name="turn">Turn: </string>
 
     <string name="scienceNature">Science and Nature</string>
     <string name="mathematics">Mathematics</string>
@@ -50,7 +50,9 @@
     <string name="wrong_answer_Title">Wrong answer</string>
     <string name="wrong_answer_message">I am sorry, you got the answer wrong</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="point">Point</string>
+    <string name="win">Win</string>
+    <string name="tied_game">The game ended in a draw</string>
 
 
 </resources>
