@@ -146,8 +146,8 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="409dp"
-        android:layout_height="215dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -175,6 +175,7 @@
                 android:layout_weight="1"
                 android:buttonTint="@color/white"
                 android:checked="true"
+                android:maxLines="2"
                 android:text="@string/generalKnowledge"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -192,6 +193,7 @@
                 android:layout_weight="1"
                 android:buttonTint="@color/white"
                 android:checked="true"
+                android:nestedScrollingEnabled="true"
                 android:text="@string/scienceNature"
                 android:textColor="@color/white"
                 android:textSize="16sp" />

@@ -1,5 +1,6 @@
 package com.example.quizcross.activity
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +35,7 @@ class NewGameActivity : AppCompatActivity() {
     private lateinit var categories: MutableList<Int>
     private var selectedLine by Delegates.notNull<Int>()
     private var selectedColumn by Delegates.notNull<Int>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,9 +162,37 @@ class NewGameActivity : AppCompatActivity() {
                 showSnackbar(getString(R.string.wrong_answer_message))
             }
         }
+
+        questionViewModel.isRequestingQuestion.observe(this){
+            if(it){
+                val progressDialog = ProgressDialog(this)
+                progressDialog.setMessage("Loading...")
+                progressDialog.show()
+
+
+            }
+        }
     }
 
     private fun settingMatrix(){
+
+//        val displayMetrics = resources.displayMetrics
+//        val screenWidth = displayMetrics.widthPixels
+//        val layoutParams = newGameBinding.matrix.position00.layoutParams
+//        layoutParams.width = (screenWidth * 0.3).toInt()
+//        layoutParams.height = (screenWidth * 0.3).toInt()
+//
+//        newGameBinding.matrix.position00.layoutParams = layoutParams
+//        newGameBinding.matrix.position01.layoutParams = layoutParams
+//        newGameBinding.matrix.position02.layoutParams = layoutParams
+//        newGameBinding.matrix.position10.layoutParams = layoutParams
+//        newGameBinding.matrix.position11.layoutParams = layoutParams
+//        newGameBinding.matrix.position12.layoutParams = layoutParams
+//        newGameBinding.matrix.position20.layoutParams = layoutParams
+//        newGameBinding.matrix.position21.layoutParams = layoutParams
+//        newGameBinding.matrix.position22.layoutParams = layoutParams
+
+
         newGameBinding.matrix.position00.setOnClickListener {
             selectedLine = 0
             selectedColumn = 0
