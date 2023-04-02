@@ -15,7 +15,7 @@
 
 ## Capturas de Tela
 
-<img src="screenshots/home.png" alt="Home" width="250"/> <img src="screenshots/game_play.png" alt="tela Jogo" width="250"/> <img src="screenshot/question.png" alt="question" width="250"/> <img src="screenshot/settings.png" alt="settings" width="250"/>
+<img src="screenshots/home.png" alt="Home" width="250"/> <img src="screenshots/game_play.png" alt="tela Jogo" width="250"/> <img src="screenshots/question.png" alt="question" width="250"/> <img src="screenshots/settings.png" alt="settings" width="250"/>
 
 ## Arquitetura
 O projeto segue a arquitetura MVVM (Model-View-ViewModel), que separa a lógica de negócio da interface do usuário. Ele é dividido em três camadas:
