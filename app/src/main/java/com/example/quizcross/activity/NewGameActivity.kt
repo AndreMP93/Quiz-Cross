@@ -9,6 +9,8 @@ import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.quizcross.R
 import com.example.quizcross.databinding.ActivityNewGameBinding
@@ -35,7 +37,9 @@ class NewGameActivity : AppCompatActivity() {
     private lateinit var categories: MutableList<Int>
     private var selectedLine by Delegates.notNull<Int>()
     private var selectedColumn by Delegates.notNull<Int>()
-
+    private lateinit var progressDialog: ProgressDialog
+    private var boardWidget: MutableList<MutableList<ImageButton>> = mutableListOf(mutableListOf(),
+        mutableListOf(), mutableListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +47,16 @@ class NewGameActivity : AppCompatActivity() {
         newGameBinding = ActivityNewGameBinding.inflate(layoutInflater)
         setContentView(newGameBinding.root)
 
-
+        boardWidget[0].add(newGameBinding.matrix.position00)
+        boardWidget[0].add(newGameBinding.matrix.position01)
+        boardWidget[0].add(newGameBinding.matrix.position02)
+        boardWidget[1].add(newGameBinding.matrix.position10)
+        boardWidget[1].add(newGameBinding.matrix.position11)
+        boardWidget[1].add(newGameBinding.matrix.position12)
+        boardWidget[2].add(newGameBinding.matrix.position20)
+        boardWidget[2].add(newGameBinding.matrix.position21)
+        boardWidget[2].add(newGameBinding.matrix.position22)
+        progressDialog = ProgressDialog(this)
         gameViewModel = ViewModelProvider(this)[GameViewModel::class.java]
 
         val sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
@@ -87,10 +100,10 @@ class NewGameActivity : AppCompatActivity() {
 
         gameViewModel.ticTacToe.observe(this){
             if(it.isPlayer1Turn){
-                val turnOrder = getString(R.string.turn) + getString(R.string.player1)
+                val turnOrder = getString(R.string.turn) + " " + getString(R.string.player1)
                 newGameBinding.textTurn.text = turnOrder
             }else{
-                val turnOrder = getString(R.string.turn) + getString(R.string.player2)
+                val turnOrder = getString(R.string.turn) +" "+ getString(R.string.player2)
                 newGameBinding.textTurn.text = turnOrder
             }
             if(it.isTie){
@@ -165,91 +178,41 @@ class NewGameActivity : AppCompatActivity() {
 
         questionViewModel.isRequestingQuestion.observe(this){
             if(it){
-                val progressDialog = ProgressDialog(this)
+                println("isRequestingQuestion: $it")
                 progressDialog.setMessage("Loading...")
                 progressDialog.show()
-
-
+            }else{
+                println("isRequestingQuestion: $it")
+                progressDialog.dismiss()
             }
         }
     }
 
     private fun settingMatrix(){
+        val displayMetrics = resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val layoutParams = newGameBinding.matrix.position00.layoutParams
+        layoutParams.width = (screenWidth * 0.3).toInt()
+        layoutParams.height = (screenWidth * 0.3).toInt()
 
-//        val displayMetrics = resources.displayMetrics
-//        val screenWidth = displayMetrics.widthPixels
-//        val layoutParams = newGameBinding.matrix.position00.layoutParams
-//        layoutParams.width = (screenWidth * 0.3).toInt()
-//        layoutParams.height = (screenWidth * 0.3).toInt()
-//
-//        newGameBinding.matrix.position00.layoutParams = layoutParams
-//        newGameBinding.matrix.position01.layoutParams = layoutParams
-//        newGameBinding.matrix.position02.layoutParams = layoutParams
-//        newGameBinding.matrix.position10.layoutParams = layoutParams
-//        newGameBinding.matrix.position11.layoutParams = layoutParams
-//        newGameBinding.matrix.position12.layoutParams = layoutParams
-//        newGameBinding.matrix.position20.layoutParams = layoutParams
-//        newGameBinding.matrix.position21.layoutParams = layoutParams
-//        newGameBinding.matrix.position22.layoutParams = layoutParams
-
-
-        newGameBinding.matrix.position00.setOnClickListener {
-            selectedLine = 0
-            selectedColumn = 0
-            questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
-        }
-        newGameBinding.matrix.position01.setOnClickListener {
-            selectedLine = 0
-            selectedColumn = 1
-            questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
-        }
-        newGameBinding.matrix.position02.setOnClickListener {
-            selectedLine = 0
-            selectedColumn = 2
-            questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
-        }
-        newGameBinding.matrix.position10.setOnClickListener {
-            selectedLine = 1
-            selectedColumn = 0
-            questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
-        }
-        newGameBinding.matrix.position11.setOnClickListener {
-            selectedLine = 1
-            selectedColumn = 1
-            questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
-        }
-        newGameBinding.matrix.position12.setOnClickListener {
-            selectedLine = 1
-            selectedColumn = 2
-            questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
-        }
-        newGameBinding.matrix.position20.setOnClickListener {
-            selectedLine = 2
-            selectedColumn = 0
-            questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
-        }
-        newGameBinding.matrix.position21.setOnClickListener {
-            selectedLine = 2
-            selectedColumn = 1
-            questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
-        }
-        newGameBinding.matrix.position22.setOnClickListener {
-            selectedLine = 2
-            selectedColumn = 2
-            questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
+        for (line in boardWidget){
+            for (imageButton in line){
+                imageButton.layoutParams = layoutParams
+                imageButton.setOnClickListener {
+                    selectedLine = boardWidget.indexOf(line)
+                    selectedColumn = line.indexOf(imageButton)
+                    questionViewModel.getQuestion(category = categories.random(), difficult = difficult)
+                }
+            }
         }
     }
 
     private fun updateMatrix(board: Array<Array<String>>){
-        setImageButtonMatrix(newGameBinding.matrix.position00, board[0][0])
-        setImageButtonMatrix(newGameBinding.matrix.position01, board[0][1])
-        setImageButtonMatrix(newGameBinding.matrix.position02, board[0][2])
-        setImageButtonMatrix(newGameBinding.matrix.position10, board[1][0])
-        setImageButtonMatrix(newGameBinding.matrix.position11, board[1][1])
-        setImageButtonMatrix(newGameBinding.matrix.position12, board[1][2])
-        setImageButtonMatrix(newGameBinding.matrix.position20, board[2][0])
-        setImageButtonMatrix(newGameBinding.matrix.position21, board[2][1])
-        setImageButtonMatrix(newGameBinding.matrix.position22, board[2][2])
+        for (line in boardWidget){
+            for (imageButton in line){
+                setImageButtonMatrix(imageButton, board[boardWidget.indexOf(line)][line.indexOf(imageButton)])
+            }
+        }
     }
     private fun setImageButtonMatrix(imgButton: ImageButton, symbol: String){
         when (symbol) {
@@ -270,36 +233,19 @@ class NewGameActivity : AppCompatActivity() {
     }
 
     private fun resetMatrix(){
-        newGameBinding.matrix.position00.isEnabled = true
-        newGameBinding.matrix.position01.isEnabled = true
-        newGameBinding.matrix.position02.isEnabled = true
-        newGameBinding.matrix.position10.isEnabled = true
-        newGameBinding.matrix.position11.isEnabled = true
-        newGameBinding.matrix.position12.isEnabled = true
-        newGameBinding.matrix.position20.isEnabled = true
-        newGameBinding.matrix.position21.isEnabled = true
-        newGameBinding.matrix.position22.isEnabled = true
-
-        newGameBinding.matrix.position00.setImageResource(android.R.color.transparent)
-        newGameBinding.matrix.position01.setImageResource(android.R.color.transparent)
-        newGameBinding.matrix.position02.setImageResource(android.R.color.transparent)
-        newGameBinding.matrix.position10.setImageResource(android.R.color.transparent)
-        newGameBinding.matrix.position11.setImageResource(android.R.color.transparent)
-        newGameBinding.matrix.position12.setImageResource(android.R.color.transparent)
-        newGameBinding.matrix.position20.setImageResource(android.R.color.transparent)
-        newGameBinding.matrix.position21.setImageResource(android.R.color.transparent)
-        newGameBinding.matrix.position22.setImageResource(android.R.color.transparent)
+        for (line in boardWidget){
+            for (imageButton in line){
+                imageButton.isEnabled = true
+                imageButton.setImageResource(android.R.color.transparent)
+            }
+        }
     }
     private fun disableButtonsMatrix(){
-        newGameBinding.matrix.position00.isEnabled = false
-        newGameBinding.matrix.position01.isEnabled = false
-        newGameBinding.matrix.position02.isEnabled = false
-        newGameBinding.matrix.position10.isEnabled = false
-        newGameBinding.matrix.position11.isEnabled = false
-        newGameBinding.matrix.position12.isEnabled = false
-        newGameBinding.matrix.position20.isEnabled = false
-        newGameBinding.matrix.position21.isEnabled = false
-        newGameBinding.matrix.position22.isEnabled = false
+        for (line in boardWidget){
+            for (imageButton in line){
+                imageButton.isEnabled = false
+            }
+        }
     }
 
     private fun showWinDialog(winnerName: String?) {
@@ -340,6 +286,7 @@ class NewGameActivity : AppCompatActivity() {
         alternatives.forEachIndexed { index, text ->
             val radioButton = RadioButton(applicationContext)
             radioButton.text = text
+            radioButton.setTextColor(ContextCompat.getColor(this, R.color.button_color))
             radioButton.id = index
             radioGroup.addView(radioButton)
         }

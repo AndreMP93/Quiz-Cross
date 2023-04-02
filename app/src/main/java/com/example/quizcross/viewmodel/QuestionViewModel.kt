@@ -1,5 +1,7 @@
 package com.example.quizcross.viewmodel
 
+import android.text.Html
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +28,14 @@ class QuestionViewModel(private val questionRepository: QuestionRepository): Vie
                 _isRequestingQuestion.postValue(true)
                 val response = questionRepository.getQuestion(category, difficult)
                 val question = response.results.first()
+                var decodedContent = HtmlCompat.fromHtml(question.quetion, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
+                question.quetion = decodedContent
+                decodedContent = HtmlCompat.fromHtml(question.correct_answer, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
+                question.correct_answer = decodedContent
+
+                val listaAtualizada = question.incorrect_answers.map { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY).toString() }
+                question.incorrect_answers = listaAtualizada
+
                 _question.postValue(question)
                 _isRequestingQuestion.postValue(false)
 
