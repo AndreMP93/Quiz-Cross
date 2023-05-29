@@ -9,12 +9,12 @@ import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.quizcross.R
 import com.example.quizcross.databinding.ActivityNewGameBinding
 import com.example.quizcross.model.Question
+import com.example.quizcross.model.ResultModel
 import com.example.quizcross.model.Settings
 import com.example.quizcross.model.TicTacToe
 import com.example.quizcross.repository.QuestionRepository
@@ -163,8 +163,19 @@ class NewGameActivity : AppCompatActivity() {
     }
 
     private fun setQuestionObserves(){
-        questionViewModel.question.observe(this) {
-            showQuestion(it)
+        questionViewModel.loadQuestionProcess.observe(this){
+            when(it){
+                is ResultModel.Success -> {
+                    progressDialog.dismiss()
+                    showQuestion(it.data)
+                }
+                is ResultModel.Error -> {
+                }
+                is ResultModel.Loading -> {
+                    progressDialog.setMessage("Loading...")
+                    progressDialog.show()
+                }
+            }
         }
 
         questionViewModel.isCorrectAnswer.observe(this) {
@@ -173,17 +184,6 @@ class NewGameActivity : AppCompatActivity() {
                 showSnackbar(getString(R.string.right_answer_message))
             } else {
                 showSnackbar(getString(R.string.wrong_answer_message))
-            }
-        }
-
-        questionViewModel.isRequestingQuestion.observe(this){
-            if(it){
-                println("isRequestingQuestion: $it")
-                progressDialog.setMessage("Loading...")
-                progressDialog.show()
-            }else{
-                println("isRequestingQuestion: $it")
-                progressDialog.dismiss()
             }
         }
     }
@@ -300,7 +300,7 @@ class NewGameActivity : AppCompatActivity() {
         }
         val builder = AlertDialog.Builder(this)
             .setTitle("Question")
-            .setMessage(question.quetion)
+            .setMessage(question.question)
             .setView(radioGroup)
             .setCancelable(false)
             .setPositiveButton(getString(R.string.submit_button)) { _, _ ->}

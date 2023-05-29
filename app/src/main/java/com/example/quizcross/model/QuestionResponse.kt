@@ -1,6 +1,11 @@
 package com.example.quizcross.model
 
-data class QuestionResponse (
-    val responseCode: Int,
-    val results: List<Question>
-)
+import com.google.gson.annotations.SerializedName
+class QuestionResponse(){
+    @SerializedName("response_code")
+    var responseCode: Int = 0
+    @SerializedName("results")
+    var results: List<Question> = mutableListOf()
+
+}
+

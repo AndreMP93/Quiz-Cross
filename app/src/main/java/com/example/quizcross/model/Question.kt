@@ -2,17 +2,19 @@ package com.example.quizcross.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Question(
+class Question() {
+
     @SerializedName("category")
-    var category: String,
+    var category: String = ""
     @SerializedName("type")
-    var type: String,
+    var type: String = ""
     @SerializedName("difficulty")
-    var difficulty: String,
+    var difficulty: String = ""
     @SerializedName("question")
-    var quetion: String,
+    var question: String = ""
     @SerializedName("correct_answer")
-    var correct_answer: String,
+    var correct_answer: String = ""
     @SerializedName("incorrect_answers")
-    var incorrect_answers: List<String>
-)
+    var incorrect_answers: List<String> = mutableListOf()
+
+}
