@@ -2,13 +2,11 @@ package com.example.quizcross.repository
 
 import com.example.quizcross.model.Question
 import com.example.quizcross.model.ResultModel
-import com.example.quizcross.retrofit.ClientRetrofit
 import com.example.quizcross.retrofit.RetrofitClient
 import com.example.quizcross.retrofit.ServiceRetrofit
 import com.example.quizcross.service.APIListener
 
 class QuestionRepository {
-    private val openTriviaApiService = ClientRetrofit.openTriviaApiService
     private val remote = RetrofitClient.getServices(ServiceRetrofit::class.java)
 
     suspend fun loadQuestion(category: Int, difficult: String, listener: APIListener<Question>){
