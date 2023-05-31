@@ -21,8 +21,8 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 
 class SettingsActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySettingsBinding
-    lateinit var viewModel: SettingsViewModel
+    private lateinit var binding: ActivitySettingsBinding
+    private lateinit var viewModel: SettingsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
