@@ -15,11 +15,13 @@
     <string name="new_game_button">New Game</string>
     <string name="settings_button">Settings</string>
     <string name="home_button">Home</string>
+    <string name="player_name">Name</string>
     <string name="player1">Player 1</string>
     <string name="player2">Player 2</string>
     <string name="wins_player1">0</string>
     <string name="wins_player2">0</string>
     <string name="turn">Turn: </string>
+    <string name="edit_name_player">Enter a new name</string>
 
     <string name="scienceNature">Science and Nature</string>
     <string name="mathematics">Mathematics</string>
@@ -37,10 +39,12 @@
     <string name="submit_button">Submit</string>
     <string name="question_statement">Question Statement</string>
     <string name="alternative">Alternative</string>
+    <string name="cancel_button">Cancel</string>
     <string name="save_button">Save</string>
 
     <string name="warning_title">Warning!</string>
     <string name="error_message_category">At least one question category must be selected</string>
+    <string name="error_message_player_name">O nome dos jogadores não podem ser iguais</string>
     <string name="close_button">Close</string>
     <string name="success_message">The settings were saved!</string>
     <string name="warning_unselected_alternative">Select an alternative!</string>
@@ -49,7 +53,8 @@
     <string name="right_answer_message">Congratulations you got the answer right</string>
     <string name="wrong_answer_Title">Wrong answer</string>
     <string name="wrong_answer_message">I am sorry, you got the answer wrong</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
+
     <string name="point">Point</string>
     <string name="win">Win</string>
     <string name="tied_game">The game ended in a draw</string>

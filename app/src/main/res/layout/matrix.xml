@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:background="@color/background_color"
                 android:contentDescription="@string/position00"
-                android:scaleType="fitXY" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
         <LinearLayout
@@ -45,7 +45,7 @@
                 android:layout_weight="1"
                 android:background="@color/background_color"
                 android:contentDescription="@string/position01"
-                android:scaleType="fitXY" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:background="@color/background_color"
                 android:contentDescription="@string/position02"
-                android:scaleType="fitXY" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
     </LinearLayout>
 
@@ -87,7 +87,7 @@
                 android:layout_weight="1"
                 android:background="@color/background_color"
                 android:contentDescription="@string/position10"
-                android:scaleType="fitXY" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
         <LinearLayout
@@ -105,7 +105,7 @@
                 android:layout_weight="1"
                 android:background="@color/background_color"
                 android:contentDescription="@string/position11"
-                android:scaleType="fitXY" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
         <LinearLayout
@@ -123,7 +123,7 @@
                 android:layout_weight="1"
                 android:background="@color/background_color"
                 android:contentDescription="@string/position12"
-                android:scaleType="fitXY" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
     </LinearLayout>
 
@@ -147,7 +147,7 @@
                 android:layout_weight="1"
                 android:background="@color/background_color"
                 android:contentDescription="@string/position20"
-                android:scaleType="fitXY" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
         <LinearLayout
@@ -165,7 +165,7 @@
                 android:layout_weight="1"
                 android:background="@color/background_color"
                 android:contentDescription="@string/position21"
-                android:scaleType="fitXY" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
         <LinearLayout
@@ -183,7 +183,7 @@
                 android:layout_weight="1"
                 android:background="@color/background_color"
                 android:contentDescription="@string/position22"
-                android:scaleType="fitXY" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

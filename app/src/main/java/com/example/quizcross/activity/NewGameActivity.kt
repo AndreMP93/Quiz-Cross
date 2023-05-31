@@ -19,6 +19,7 @@ import com.example.quizcross.model.Settings
 import com.example.quizcross.model.TicTacToe
 import com.example.quizcross.repository.QuestionRepository
 import com.example.quizcross.repository.SettingRepository
+import com.example.quizcross.service.AppConstants
 import com.example.quizcross.viewmodel.GameViewModel
 import com.example.quizcross.viewmodel.QuestionViewModel
 import com.example.quizcross.viewmodel.SettingsViewModel
@@ -63,7 +64,7 @@ class NewGameActivity : AppCompatActivity() {
         val repository = SettingRepository(sharedPreferences)
         settingsViewModel = ViewModelProvider(
             this,
-            SettingsViewModelFactory(repository)
+            SettingsViewModelFactory(application, repository)
         )[SettingsViewModel::class.java]
 
         val questionRepository = QuestionRepository()
@@ -134,28 +135,28 @@ class NewGameActivity : AppCompatActivity() {
             val listCategories = mutableListOf<Int>()
             difficult = it.difficulty
             if (it.art) {
-                listCategories.add(Settings.ART_CODE)
+                listCategories.add(AppConstants.SETTINGS.ART_CODE)
             }
             if (it.animals) {
-                listCategories.add(Settings.ANIMALS_CODE)
+                listCategories.add(AppConstants.SETTINGS.ANIMALS_CODE)
             }
             if (it.films) {
-                listCategories.add(Settings.FILMS_CODE)
+                listCategories.add(AppConstants.SETTINGS.FILMS_CODE)
             }
             if (it.generalKnowledge) {
-                listCategories.add(Settings.GENERAL_KNOWLEDGE_CODE)
+                listCategories.add(AppConstants.SETTINGS.GENERAL_KNOWLEDGE_CODE)
             }
             if (it.geography) {
-                listCategories.add(Settings.GEOGRAPHY_CODE)
+                listCategories.add(AppConstants.SETTINGS.GEOGRAPHY_CODE)
             }
             if (it.history) {
-                listCategories.add(Settings.HISTORY_CODE)
+                listCategories.add(AppConstants.SETTINGS.HISTORY_CODE)
             }
             if (it.mathematics) {
-                listCategories.add(Settings.MATHEMATICS_CODE)
+                listCategories.add(AppConstants.SETTINGS.MATHEMATICS_CODE)
             }
             if (it.scienceNature) {
-                listCategories.add(Settings.SCIENCE_NATURE_CODE)
+                listCategories.add(AppConstants.SETTINGS.SCIENCE_NATURE_CODE)
             }
             categories = listCategories
         }
