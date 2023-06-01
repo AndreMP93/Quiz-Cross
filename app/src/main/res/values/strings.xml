@@ -44,7 +44,8 @@
 
     <string name="warning_title">Warning!</string>
     <string name="error_message_category">At least one question category must be selected</string>
-    <string name="error_message_player_name">O nome dos jogadores não podem ser iguais</string>
+    <string name="error_message_player_name">Player names cannot be the same</string>
+    <string name="unexpected_error">Unexpected Error</string>
     <string name="close_button">Close</string>
     <string name="success_message">The settings were saved!</string>
     <string name="warning_unselected_alternative">Select an alternative!</string>

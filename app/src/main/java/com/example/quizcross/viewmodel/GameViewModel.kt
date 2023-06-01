@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizcross.model.Scoreboard
 import com.example.quizcross.model.TicTacToe
-import com.example.quizcross.repository.QuestionRepository
 import kotlinx.coroutines.launch
 
 class GameViewModel: ViewModel() {

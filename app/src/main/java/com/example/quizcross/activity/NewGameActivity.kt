@@ -15,7 +15,6 @@ import com.example.quizcross.R
 import com.example.quizcross.databinding.ActivityNewGameBinding
 import com.example.quizcross.model.Question
 import com.example.quizcross.model.ResultModel
-import com.example.quizcross.model.Settings
 import com.example.quizcross.model.TicTacToe
 import com.example.quizcross.repository.QuestionRepository
 import com.example.quizcross.repository.SettingRepository
@@ -34,7 +33,9 @@ class NewGameActivity : AppCompatActivity() {
     private lateinit var gameViewModel: GameViewModel
     private lateinit var questionViewModel: QuestionViewModel
     private lateinit var settingsViewModel: SettingsViewModel
-    private lateinit var difficult: String
+    private var difficult: String = AppConstants.SETTINGS.MEDIUM_DIFFICULTY
+    private var player1Name: String = ""
+    private var player2Name: String = ""
     private lateinit var categories: MutableList<Int>
     private var selectedLine by Delegates.notNull<Int>()
     private var selectedColumn by Delegates.notNull<Int>()
@@ -47,6 +48,8 @@ class NewGameActivity : AppCompatActivity() {
 
         newGameBinding = ActivityNewGameBinding.inflate(layoutInflater)
         setContentView(newGameBinding.root)
+        player1Name = getString(R.string.player1)
+        player2Name = getString(R.string.player2)
 
         boardWidget[0].add(newGameBinding.matrix.position00)
         boardWidget[0].add(newGameBinding.matrix.position01)
@@ -87,7 +90,7 @@ class NewGameActivity : AppCompatActivity() {
             if (it) {
                 gameViewModel.newGame()
                 resetMatrix()
-                showSnackbar(getString(R.string.player1) + " " + getString(R.string.win))
+                showSnackbar(player1Name + " " + getString(R.string.win))
             }
         }
 
@@ -95,16 +98,16 @@ class NewGameActivity : AppCompatActivity() {
             if (it) {
                 gameViewModel.newGame()
                 resetMatrix()
-                showSnackbar(getString(R.string.player2) + " " + getString(R.string.win))
+                showSnackbar(player2Name + " " + getString(R.string.win))
             }
         }
 
         gameViewModel.ticTacToe.observe(this){
             if(it.isPlayer1Turn){
-                val turnOrder = getString(R.string.turn) + " " + getString(R.string.player1)
+                val turnOrder = getString(R.string.turn) + " " + player1Name
                 newGameBinding.textTurn.text = turnOrder
             }else{
-                val turnOrder = getString(R.string.turn) +" "+ getString(R.string.player2)
+                val turnOrder = getString(R.string.turn) +" "+ player2Name
                 newGameBinding.textTurn.text = turnOrder
             }
             if(it.isTie){
@@ -119,10 +122,10 @@ class NewGameActivity : AppCompatActivity() {
             newGameBinding.textWinsPlayer1.text = it.player1.toString()
             newGameBinding.textWinsPlayer2.text = it.player2.toString()
             if (it.player1 == 3 && it.player2 != 3) {
-                showWinDialog(getString(R.string.player1))
+                showWinDialog(player1Name)
                 disableButtonsMatrix()
             } else if (it.player2 == 3 && it.player1 != 3) {
-                showWinDialog(getString(R.string.player2))
+                showWinDialog(player2Name)
                 disableButtonsMatrix()
             } else if (it.player1 == it.player2 && it.player1 == 3) {
                 showWinDialog(null)
@@ -131,34 +134,53 @@ class NewGameActivity : AppCompatActivity() {
         }
     }
     private fun setSettingsObserves(){
-        settingsViewModel.setting.observe(this) {
+        settingsViewModel.loadSettingsProcess.observe(this) {
             val listCategories = mutableListOf<Int>()
-            difficult = it.difficulty
-            if (it.art) {
-                listCategories.add(AppConstants.SETTINGS.ART_CODE)
+            when(it){
+                is ResultModel.Success -> {
+                    player1Name = it.data.player1Name
+                    player2Name = it.data.player2Name
+                    newGameBinding.textPlayer1Name.text = player1Name
+                    newGameBinding.textPlayer2Name.text = player2Name
+                    difficult = it.data.difficulty
+                    if (it.data.art) {
+                        listCategories.add(AppConstants.SETTINGS.ART_CODE)
+                    }
+                    if (it.data.animals) {
+                        listCategories.add(AppConstants.SETTINGS.ANIMALS_CODE)
+                    }
+                    if (it.data.films) {
+                        listCategories.add(AppConstants.SETTINGS.FILMS_CODE)
+                    }
+                    if (it.data.generalKnowledge) {
+                        listCategories.add(AppConstants.SETTINGS.GENERAL_KNOWLEDGE_CODE)
+                    }
+                    if (it.data.geography) {
+                        listCategories.add(AppConstants.SETTINGS.GEOGRAPHY_CODE)
+                    }
+                    if (it.data.history) {
+                        listCategories.add(AppConstants.SETTINGS.HISTORY_CODE)
+                    }
+                    if (it.data.mathematics) {
+                        listCategories.add(AppConstants.SETTINGS.MATHEMATICS_CODE)
+                    }
+                    if (it.data.scienceNature) {
+                        listCategories.add(AppConstants.SETTINGS.SCIENCE_NATURE_CODE)
+                    }
+                    if(listCategories.size > 0){
+                        categories = listCategories
+                    }else{
+                        showSnackbar(getString(R.string.unexpected_error))
+                        finish()
+                    }
+                }
+                is ResultModel.Error -> {
+                    showSnackbar(getString(R.string.unexpected_error))
+                    finish()
+                }
+                is ResultModel.Loading -> {}
             }
-            if (it.animals) {
-                listCategories.add(AppConstants.SETTINGS.ANIMALS_CODE)
-            }
-            if (it.films) {
-                listCategories.add(AppConstants.SETTINGS.FILMS_CODE)
-            }
-            if (it.generalKnowledge) {
-                listCategories.add(AppConstants.SETTINGS.GENERAL_KNOWLEDGE_CODE)
-            }
-            if (it.geography) {
-                listCategories.add(AppConstants.SETTINGS.GEOGRAPHY_CODE)
-            }
-            if (it.history) {
-                listCategories.add(AppConstants.SETTINGS.HISTORY_CODE)
-            }
-            if (it.mathematics) {
-                listCategories.add(AppConstants.SETTINGS.MATHEMATICS_CODE)
-            }
-            if (it.scienceNature) {
-                listCategories.add(AppConstants.SETTINGS.SCIENCE_NATURE_CODE)
-            }
-            categories = listCategories
+
         }
 
     }
